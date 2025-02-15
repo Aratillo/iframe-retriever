@@ -30,8 +30,6 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
     // Look for the iframe element
     const iframe = doc.querySelector("iframe");
     if (iframe) {
-      // Insert the iframe to render the graph
-      document.getElementById('iframeContainer').innerHTML = iframe.outerHTML;
       // Also display the iframe's HTML code as text
       document.getElementById('iframeCode').textContent = iframe.outerHTML;
     } else {
