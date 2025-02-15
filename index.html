@@ -13,29 +13,34 @@
   <p>Upload your HTML file below, and the embedded content will be displayed automatically.</p>
   <input type="file" id="fileInput" accept=".html">
   <div id="iframeContainer"></div>
+  <h2>Iframe HTML Code:</h2>
+  <pre id="iframeCode"></pre>
 
   <script>
-    document.getElementById('fileInput').addEventListener('change', function(event) {
-      const file = event.target.files[0];
-      if (!file) return;
+document.getElementById('fileInput').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
 
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const fileContent = e.target.result;
-        // Parse the file content as HTML
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(fileContent, "text/html");
-        // Look for the iframe element
-        const iframe = doc.querySelector("iframe");
-        if (iframe) {
-          // Insert the iframe's outer HTML into the container
-          document.getElementById('iframeContainer').innerHTML = iframe.outerHTML;
-        } else {
-          document.getElementById('iframeContainer').textContent = "No iframe found in the uploaded file.";
-        }
-      };
-      reader.readAsText(file);
-    });
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const fileContent = e.target.result;
+    // Parse the file content as HTML
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(fileContent, "text/html");
+    // Look for the iframe element
+    const iframe = doc.querySelector("iframe");
+    if (iframe) {
+      // Insert the iframe to render the graph
+      document.getElementById('iframeContainer').innerHTML = iframe.outerHTML;
+      // Also display the iframe's HTML code as text
+      document.getElementById('iframeCode').textContent = iframe.outerHTML;
+    } else {
+      document.getElementById('iframeContainer').textContent = "No iframe found in the uploaded file.";
+    }
+  };
+  reader.readAsText(file);
+});
+
   </script>
 </body>
 </html>
